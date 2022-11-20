@@ -1,9 +1,7 @@
 <!DOCTYPE html><html class="appearance-auto" lang="zh-CN"><head><meta charset="UTF-8"><title>TypeScript 高级类型</title><meta name="description" content="May the Force be with you"><meta name="viewport" content="width=device-width, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no, initial-scale=1"><!-- Google Analytics --><!-- End Google Analytics -->
-<!-- Baidu Analytics --><!-- End Baidu Analytics --><link rel="icon" href="/images/favicon.ico"><link rel="stylesheet" href="/style/common/bulma.css"><link rel="stylesheet" href="/style/base.css"><link rel="stylesheet" href="/style/common/helper.css"><script src="/js/common.js"></script><link rel="stylesheet" href="/style/post.css"><link rel="stylesheet" href="/style/themes/highlight-theme-light.css"><link rel="stylesheet" href="/style/common/jquery.fancybox.min.css"><script src="/js/highlight.pack.js"></script><meta name="description" content="#前言
-
+<!-- Baidu Analytics --><!-- End Baidu Analytics --><link rel="icon" href="/images/favicon.ico"><link rel="stylesheet" href="/style/common/bulma.css"><link rel="stylesheet" href="/style/base.css"><link rel="stylesheet" href="/style/common/helper.css"><script src="/js/common.js"></script><link rel="stylesheet" href="/style/post.css"><link rel="stylesheet" href="/style/themes/highlight-theme-light.css"><link rel="stylesheet" href="/style/common/jquery.fancybox.min.css"><script src="/js/highlight.pack.js"></script><meta name="description" content="前言
 之前一直使用的是 js 现在转过来学习 ts 的时候尝到了 ts 对类型规范的很多好处，相应的 ts 的类型有时候也让人头大,下面简单总结一下自己对 ts 高级类型的学习成果。
-#一般类型
-
+一般类型
 //给变量指定类型
 const value: string = &amp;quot;value&amp;quot;
 //给方法的形参和返回值指定类型
@@ -13,12 +11,10 @@ const fun0 = (str: string): string =&amp;gt; &amp;#123;
 //甚至可以直接给方法指定类型
 type funType = (str: string) =&amp;gt; string
 const fun1: funType = (str) =&amp;gt; &amp;#123;
-    return &amp;.."><meta name="generator" content="Hexo 5.4.2"><link rel="alternate" href="/atom.xml" title="Hexo" type="application/atom+xml">
-</head><body class="is-flex is-flex-direction-column"><header class="header-widget is-flex-shrink-0 is-hidden-mobile"><div class="container is-fullhd is-flex is-justify-content-space-between is-align-items-center is-full-height"><section class="is-hidden-mobile is-flex-shrink-0"><h2><a href="/">zhangliang's blog</a></h2></section><h3 class="is-hidden-mobile is-family-serif is-full-height is-flex is-align-items-center is-flex-shrink-0"><div class="is-full-height" id="postTopic"><p class="is-full-height is-flex-shrink-0 is-flex is-align-items-center is-justify-content-center">TypeScript 高级类型</p><p class="is-full-height is-flex-shrink-0 is-flex is-align-items-center is-justify-content-center">点击返回顶部</p></div></h3><aside class="is-flex-shrink-0"><h3 class="is-inline-block"><a href="/">首页</a></h3><h3 class="is-inline-block"><a href="/about">关于</a></h3><h3 class="is-inline-block"><a href="/archives">归档</a></h3></aside></div></header><header class="is-flex header-widget is-flex-shrink-0 is-align-items-center is-justify-content-center is-hidden-tablet"><h3 class="is-inline-block"><a href="/">首页</a></h3><h3 class="is-inline-block"><a href="/about">关于</a></h3><h3 class="is-inline-block"><a href="/archives">归档</a></h3></header><main><main class="container is-max-widescreen content section post-page pt-4 px-4"><div class="columns is-flex-desktop is-justify-content-center is-flex-direction-row-reverse"><div class="column is-3 is-hidden-mobile is-hidden"></div><div class="column is-9"><header class="my-4"><a href="/tags/Advanced%20Type"><i class="tag post-item-tag">Advanced Type</i></a></header><h1 class="mt-0 mb-1 is-family-serif" id="postTitle">TypeScript 高级类型</h1><time class="has-text-grey" datetime="2022-11-20T03:30:18.000Z">2022-11-20</time><article class="mt-2 post-content"><p>#前言</p>
-<hr>
+    return &amp;quot.."><meta name="generator" content="Hexo 5.4.2"><link rel="alternate" href="/atom.xml" title="Hexo" type="application/atom+xml">
+</head><body class="is-flex is-flex-direction-column"><header class="header-widget is-flex-shrink-0 is-hidden-mobile"><div class="container is-fullhd is-flex is-justify-content-space-between is-align-items-center is-full-height"><section class="is-hidden-mobile is-flex-shrink-0"><h2><a href="/">zhangliang's blog</a></h2></section><h3 class="is-hidden-mobile is-family-serif is-full-height is-flex is-align-items-center is-flex-shrink-0"><div class="is-full-height" id="postTopic"><p class="is-full-height is-flex-shrink-0 is-flex is-align-items-center is-justify-content-center">TypeScript 高级类型</p><p class="is-full-height is-flex-shrink-0 is-flex is-align-items-center is-justify-content-center">点击返回顶部</p></div></h3><aside class="is-flex-shrink-0"><h3 class="is-inline-block"><a href="/">首页</a></h3><h3 class="is-inline-block"><a href="/about">关于</a></h3><h3 class="is-inline-block"><a href="/archives">归档</a></h3></aside></div></header><header class="is-flex header-widget is-flex-shrink-0 is-align-items-center is-justify-content-center is-hidden-tablet"><h3 class="is-inline-block"><a href="/">首页</a></h3><h3 class="is-inline-block"><a href="/about">关于</a></h3><h3 class="is-inline-block"><a href="/archives">归档</a></h3></header><main><main class="container is-max-widescreen content section post-page pt-4 px-4"><div class="columns is-flex-desktop is-justify-content-center is-flex-direction-row-reverse"><div class="column is-3 is-hidden-mobile"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%89%8D%E8%A8%80"><span class="toc-text">前言</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E4%B8%80%E8%88%AC%E7%B1%BB%E5%9E%8B"><span class="toc-text">一般类型</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E6%B3%9B%E5%9E%8B"><span class="toc-text">泛型</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E9%AB%98%E7%BA%A7%E7%B1%BB%E5%9E%8B"><span class="toc-text">高级类型</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E7%B1%BB%E5%9E%8B%E5%88%AB%E5%90%8D%EF%BC%88type%EF%BC%89"><span class="toc-text">#类型别名（type）</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%81%94%E5%90%88%E7%B1%BB%E5%9E%8B%EF%BC%88-%EF%BC%89"><span class="toc-text">联合类型（|）</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BA%A4%E5%8F%89%E7%B1%BB%E5%9E%8B%EF%BC%88-amp-%EF%BC%89"><span class="toc-text">交叉类型（&amp;）</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%B1%BB%E5%9E%8B%E7%B4%A2%E5%BC%95%EF%BC%88keyof%EF%BC%89"><span class="toc-text">类型索引（keyof）</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%B1%BB%E5%9E%8B%E7%BA%A6%E6%9D%9F%EF%BC%88extends%EF%BC%89"><span class="toc-text">类型约束（extends）</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%B1%BB%E5%9E%8B%E6%98%A0%E5%B0%84%EF%BC%88in%EF%BC%89"><span class="toc-text">类型映射（in）</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%9D%A1%E4%BB%B6%E7%B1%BB%E5%9E%8B%EF%BC%88A-B-C%EF%BC%89"><span class="toc-text">条件类型（A ? B : C）</span></a></li></ol></li></ol></div><div class="column is-9"><header class="my-4"><a href="/tags/Advanced%20Type"><i class="tag post-item-tag">Advanced Type</i></a></header><h1 class="mt-0 mb-1 is-family-serif" id="postTitle">TypeScript 高级类型</h1><time class="has-text-grey" datetime="2022-11-20T03:30:18.000Z">2022-11-20</time><article class="mt-2 post-content"><h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><hr>
 <p>之前一直使用的是 <strong>js</strong> 现在转过来学习 <strong>ts</strong> 的时候尝到了 <strong>ts</strong> 对类型规范的很多好处，相应的 <strong>ts</strong> 的类型有时候也让人头大,下面简单总结一下自己对 <strong>ts</strong> 高级类型的学习成果。</p>
-<p>#一般类型</p>
-<hr>
+<h1 id="一般类型"><a href="#一般类型" class="headerlink" title="一般类型"></a>一般类型</h1><hr>
 <pre><code>//给变量指定类型
 const value: string = &quot;value&quot;
 //给方法的形参和返回值指定类型
@@ -43,8 +39,7 @@ const fun2: funType = () =&gt; &#123;
 console.log(fun2(&quot;value&quot;));
 </code></pre>
 <p>这样是不会报错的，可是为什么呢？我们明明指定了<code>funType</code>的形参有且是<code>string</code>，那大家肯定想问真是为什么，抱歉我也不知道，哈哈哈！如果有知道的朋友希望能留言告知。这样做的问题是在<code>fun2</code>里面是拿不到传入的形参的，不知道是不是bug。</p>
-<p>#泛型</p>
-<hr>
+<h1 id="泛型"><a href="#泛型" class="headerlink" title="泛型"></a>泛型</h1><hr>
 <p>对就是它，我个人来说在学习和使用<code>ts</code>的途中最头疼的就是泛型，<code>ts</code>中泛型的使用真的让人头晕眼花，但当你真的看明白<code>ts</code>中泛型的使用是又不得不说这简直就像是在变魔术。下面记录一下泛型的一般用法：</p>
 <pre><code>//将对象中值为number类型的数据组成一个新对象
 function getObjAllNum&lt;T&gt;(t: T): any &#123;
@@ -68,16 +63,13 @@ console.log(getObjAllNum(value));
 <img src="/images/5125944-9c713ea3c4d78cfd.png" width="100%">
 <br>
 
-<p>#高级类型</p>
-<hr>
+<h1 id="高级类型"><a href="#高级类型" class="headerlink" title="高级类型"></a>高级类型</h1><hr>
 <p>接下来要说的就是<code>ts</code>为我们提供的一些类型的高级操作方式</p>
-<p>##类型别名（type）</p>
-<p>可以理解成可以给一个类型再取另一个名字，比如：</p>
+<h1 id="类型别名（type）"><a href="#类型别名（type）" class="headerlink" title="#类型别名（type）"></a>#类型别名（type）</h1><p>可以理解成可以给一个类型再取另一个名字，比如：</p>
 <pre><code>type myString = string
 const str: myString = &quot;str&quot;
 </code></pre>
-<p>##联合类型（|）</p>
-<p><code>A|B</code>表示<code>A</code>或者<code>B</code>中的任意一个类型 ，如下代码，<code>zhangSan</code>就是属于<code>Man</code>类型，<code>xiaoLi</code>属于<code>Woman</code>类型。</p>
+<h2 id="联合类型（-）"><a href="#联合类型（-）" class="headerlink" title="联合类型（|）"></a>联合类型（|）</h2><p><code>A|B</code>表示<code>A</code>或者<code>B</code>中的任意一个类型 ，如下代码，<code>zhangSan</code>就是属于<code>Man</code>类型，<code>xiaoLi</code>属于<code>Woman</code>类型。</p>
 <pre><code>interface Man &#123;
     working(): void;
 &#125;
@@ -113,8 +105,7 @@ xiaoLi.shopping()
 <br>
 
 
-<p>##交叉类型（&amp;）</p>
-<p><code>A&amp;B</code>高级类型是将两个类型合并成了一个类型，这个类型拥有<code>A</code>和<code>B</code>的所有属性，所以称其为<code>合并类型</code>也没啥毛病。<strong>这东西才学的时候一直以为是交集，其实应该是并集才对。</strong></p>
+<h2 id="交叉类型（-amp-）"><a href="#交叉类型（-amp-）" class="headerlink" title="交叉类型（&amp;）"></a>交叉类型（&amp;）</h2><p><code>A&amp;B</code>高级类型是将两个类型合并成了一个类型，这个类型拥有<code>A</code>和<code>B</code>的所有属性，所以称其为<code>合并类型</code>也没啥毛病。<strong>这东西才学的时候一直以为是交集，其实应该是并集才对。</strong></p>
 <pre><code>interface Apple &#123;
     size: string,
     color: string,
@@ -131,8 +122,7 @@ const pineapple: Pineapple = &#123;
 &#125;
 </code></pre>
 <p>这里有个问题就是两个<code>Interface</code>做交叉类型时，如果含有相同的<code>key</code>会出现什么问题呢？<a target="_blank" rel="noopener" href="https://www.jianshu.com/p/38bc2dac26b5">详情请见另一篇</a>。</p>
-<p>##类型索引（keyof）</p>
-<p><code>keyof</code>的作用是将一个类型拆分开了，将拆分出来的子类型的集合作为类型返回，如下代码，<code>PersonKeys</code>的类型（图<code>keyof.png</code>所示）为<code>name|age</code>这种联合类型</p>
+<h2 id="类型索引（keyof）"><a href="#类型索引（keyof）" class="headerlink" title="类型索引（keyof）"></a>类型索引（keyof）</h2><p><code>keyof</code>的作用是将一个类型拆分开了，将拆分出来的子类型的集合作为类型返回，如下代码，<code>PersonKeys</code>的类型（图<code>keyof.png</code>所示）为<code>name|age</code>这种联合类型</p>
 <pre><code>interface Person &#123;
     name: string,
     age: number
@@ -142,8 +132,7 @@ type PersonKeys = keyof Person
 <img src="/images/5125944-20ef51582f5f8d3a.png" width="100%">
 <br>
 
-<p>##类型约束（extends）</p>
-<p><code>extends</code>的作用是约束泛型，将泛型的类型限定成某个类型，如下例子:<code>logPersonInfo&lt;Person&gt;()</code>可以传入<code>Man</code>和<code>Woman</code>两种类型，但<code>logPersonInfo&lt;Man&gt;()</code>却只能传入<code>Man</code>类型,<code>logPersonInfo&lt;Woman&gt;()</code>却只能传入<code>Woman</code>类型。</p>
+<h2 id="类型约束（extends）"><a href="#类型约束（extends）" class="headerlink" title="类型约束（extends）"></a>类型约束（extends）</h2><p><code>extends</code>的作用是约束泛型，将泛型的类型限定成某个类型，如下例子:<code>logPersonInfo&lt;Person&gt;()</code>可以传入<code>Man</code>和<code>Woman</code>两种类型，但<code>logPersonInfo&lt;Man&gt;()</code>却只能传入<code>Man</code>类型,<code>logPersonInfo&lt;Woman&gt;()</code>却只能传入<code>Woman</code>类型。</p>
 <pre><code>interface Person &#123;
     name: string,
     age: number
@@ -183,8 +172,7 @@ function logPersonInfo&lt;T extends Person&gt;(t: T) &#123;
 logPersonInfo&lt;Person&gt;(new Alien())
 </code></pre>
 <p>这个时候我们传入<code>logPersonInfo&lt;Person&gt;()</code>的是一个<code>Alien</code>，这时候也不会有什么问题，因为<code>Alien</code>包含了<code>Person</code>的所有属性。对比两个例子我们能看得出来这里的<code>extends</code>和类继承的<code>extends</code>是不一样的，这个地方的<code>extends</code>起到的作用只是限制泛型<code>T</code>的类型为包含了<code>Person</code>类型的所有属性（<strong>当然所有属性的类型也要一致</strong>）的类型。</p>
-<p>##类型映射（in）</p>
-<p><code>in</code>高级类型起到的作用是做类型的映射，它会遍历<strong>已有类型的所有key</strong>或者是<strong>联合类型的所有类型</strong>，有点类似于<code>forin</code>。下面我们写的demo，将已有类型的所有属性转换成可空类型。</p>
+<h2 id="类型映射（in）"><a href="#类型映射（in）" class="headerlink" title="类型映射（in）"></a>类型映射（in）</h2><p><code>in</code>高级类型起到的作用是做类型的映射，它会遍历<strong>已有类型的所有key</strong>或者是<strong>联合类型的所有类型</strong>，有点类似于<code>forin</code>。下面我们写的demo，将已有类型的所有属性转换成可空类型。</p>
 <pre><code>interface Person &#123;
     name: string;
     age: number;
@@ -208,8 +196,7 @@ const value: ValueType = &#123;
 &#125;
 </code></pre>
 <p>结合上面联合类型的例子，我们再来看第一个例子，<code>[P in keyof Person]</code>就可以拆分成<code>[P in keyof &quot;name&quot;|&quot;age&quot;]</code>，其实最终都是使用联合类型来进行<code>in</code>操作</p>
-<p>##条件类型（A ? B : C）</p>
-<p><code>条件类型</code>其实就是一个三元运算操作，如果满足条件<code>A</code>那么就是<code>B</code>类型，否则就是<code>C</code>类型，话不多说上代码：</p>
+<h2 id="条件类型（A-B-C）"><a href="#条件类型（A-B-C）" class="headerlink" title="条件类型（A ? B : C）"></a>条件类型（A ? B : C）</h2><p><code>条件类型</code>其实就是一个三元运算操作，如果满足条件<code>A</code>那么就是<code>B</code>类型，否则就是<code>C</code>类型，话不多说上代码：</p>
 <pre><code>//传入T和U，如果T包含U所有的key，那么返回类型是T，反之返回的是T和U的交叉类型
 type MergeAction&lt;T, U&gt; = T extends U ? T : T &amp; U
 
