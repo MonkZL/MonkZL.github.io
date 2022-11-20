@@ -1,6 +1,29 @@
 <!DOCTYPE html><html class="appearance-auto" lang="zh-CN"><head><meta charset="UTF-8"><title>zhangliang's blog</title><meta name="description" content="May the Force be with you"><meta name="viewport" content="width=device-width, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no, initial-scale=1"><!-- Google Analytics --><!-- End Google Analytics -->
 <!-- Baidu Analytics --><!-- End Baidu Analytics --><link rel="icon" href="/images/favicon.ico"><link rel="stylesheet" href="/style/common/bulma.css"><link rel="stylesheet" href="/style/base.css"><link rel="stylesheet" href="/style/common/helper.css"><script src="/js/common.js"></script><link rel="stylesheet" href="/style/widget-post-list.css"><meta name="generator" content="Hexo 5.4.2"><link rel="alternate" href="/atom.xml" title="Hexo" type="application/atom+xml">
-</head><body class="is-flex is-flex-direction-column"><header class="header-widget is-flex-shrink-0 is-hidden-mobile"><div class="container is-fullhd is-flex is-justify-content-space-between is-align-items-center is-full-height"><section class="is-hidden-mobile is-flex-shrink-0"><h2><a href="/">zhangliang's blog</a></h2></section><h3 class="is-hidden-mobile is-family-serif is-full-height is-flex is-align-items-center is-flex-shrink-0"><span>归档 · 全部</span></h3><aside class="is-flex-shrink-0"><h3 class="is-inline-block"><a href="/">首页</a></h3><h3 class="is-inline-block"><a href="/about">关于</a></h3><h3 class="is-inline-block"><a href="/archives">归档</a></h3></aside></div></header><header class="is-flex header-widget is-flex-shrink-0 is-align-items-center is-justify-content-center is-hidden-tablet"><h3 class="is-inline-block"><a href="/">首页</a></h3><h3 class="is-inline-block"><a href="/about">关于</a></h3><h3 class="is-inline-block"><a href="/archives">归档</a></h3></header><main><article class="post-container is-flex is-justify-content-center section container is-max-widescreen pt-4 px-2"><div class="columns is-variable is-1-tablet is-3-desktop-only is-2-widescreen is-full-width"><section class="column"><article class="post-item-card"><header class="is-relative is-flex"><div class="post-cover-backdrop is-hidden"><img src="/images/5125944-397285fdc655de54.png" alt="loading.."></div><a class="post-cover-link has-text-centered skeleton" href="/2022/11/20/TypeScript%E8%87%AA%E5%B8%A6%E7%9A%84%E5%B7%A5%E5%85%B7%E6%B3%9B%E5%9E%8B/"><img class="post-cover-img js-img-fadeIn" src="/images/5125944-397285fdc655de54.png" alt="loading.." data-backdrop="true"></a></header><section class="content post-card-content p-4 pb-5"><header><a href="/tags/Advanced%20Type"><i class="tag post-item-tag">Advanced Type</i></a></header><h2 class="mt-4 mb-0 is-family-serif"><a href="/2022/11/20/TypeScript%E8%87%AA%E5%B8%A6%E7%9A%84%E5%B7%A5%E5%85%B7%E6%B3%9B%E5%9E%8B/">TypeScript自带的工具泛型</a></h2><time class="has-text-grey" datetime="2022-11-20T03:42:42.000Z">2022-11-20</time><p class="is-flex-grow-2 mt-2">前言前面总结了ts的高级类型，下面再来说说ts给我们提供的一些基于这些高级类型而成的工具泛型。
+</head><body class="is-flex is-flex-direction-column"><header class="header-widget is-flex-shrink-0 is-hidden-mobile"><div class="container is-fullhd is-flex is-justify-content-space-between is-align-items-center is-full-height"><section class="is-hidden-mobile is-flex-shrink-0"><h2><a href="/">zhangliang's blog</a></h2></section><h3 class="is-hidden-mobile is-family-serif is-full-height is-flex is-align-items-center is-flex-shrink-0"><span>归档 · 全部</span></h3><aside class="is-flex-shrink-0"><h3 class="is-inline-block"><a href="/">首页</a></h3><h3 class="is-inline-block"><a href="/about">关于</a></h3><h3 class="is-inline-block"><a href="/archives">归档</a></h3></aside></div></header><header class="is-flex header-widget is-flex-shrink-0 is-align-items-center is-justify-content-center is-hidden-tablet"><h3 class="is-inline-block"><a href="/">首页</a></h3><h3 class="is-inline-block"><a href="/about">关于</a></h3><h3 class="is-inline-block"><a href="/archives">归档</a></h3></header><main><article class="post-container is-flex is-justify-content-center section container is-max-widescreen pt-4 px-2"><div class="columns is-variable is-1-tablet is-3-desktop-only is-2-widescreen is-full-width"><section class="column"><article class="post-item-card"><section class="content post-card-content p-4 pb-5"><header><a href="/tags/MySQL"><i class="tag post-item-tag">MySQL</i></a></header><h2 class="mt-4 mb-0 is-family-serif"><a href="/2022/11/20/java-web%E5%AD%A6%E4%B9%A0-MySQL/">java-web学习 MySQL</a></h2><time class="has-text-grey" datetime="2022-11-20T09:16:53.000Z">2022-11-20</time><p class="is-flex-grow-2 mt-2">数据库相关概念数据库（DB）储存数据的仓库，数据是有组织的进行储存的
+数据库管理系统（DBMS：DateBase Manager Server）管理数据库的软件（Oracle，MySQL，sqlite等等都是数据库管理系统）
+SQL（Structured Queue Language）
+结构化查询语言
+操作关系型数据库的编程语言
+定义操作所有类型数据库的统一标准
+
+关系型数据库通过表来储存数据的数据库
+SQL简介
+结构化查询语言
+操作关系型数据库的编程语言
+定义操作所有类型数据库的统一标准
+不同数据库会存在不同用法（方言）
+
+通用语法
+可以单行多行书写，以分号（;）结尾
+语句不区分大小写
+注释
+单行注释：**– 注释内容** 或 #注释内容（MySQL特有）
+多行注释：**/* 注释 /*
+
+
+
+SQL分类..</p><a class="button is-default mt-2 has-text-weight-semibold" href="/2022/11/20/java-web%E5%AD%A6%E4%B9%A0-MySQL/">更多</a></section></article><article class="post-item-card"><header class="is-relative is-flex"><div class="post-cover-backdrop is-hidden"><img src="/images/5125944-397285fdc655de54.png" alt="loading.."></div><a class="post-cover-link has-text-centered skeleton" href="/2022/11/20/TypeScript%E8%87%AA%E5%B8%A6%E7%9A%84%E5%B7%A5%E5%85%B7%E6%B3%9B%E5%9E%8B/"><img class="post-cover-img js-img-fadeIn" src="/images/5125944-397285fdc655de54.png" alt="loading.." data-backdrop="true"></a></header><section class="content post-card-content p-4 pb-5"><header><a href="/tags/Advanced%20Type"><i class="tag post-item-tag">Advanced Type</i></a></header><h2 class="mt-4 mb-0 is-family-serif"><a href="/2022/11/20/TypeScript%E8%87%AA%E5%B8%A6%E7%9A%84%E5%B7%A5%E5%85%B7%E6%B3%9B%E5%9E%8B/">TypeScript自带的工具泛型</a></h2><time class="has-text-grey" datetime="2022-11-20T03:42:42.000Z">2022-11-20</time><p class="is-flex-grow-2 mt-2">前言前面总结了ts的高级类型，下面再来说说ts给我们提供的一些基于这些高级类型而成的工具泛型。
 Partial/**
  * Make all properties in T optional
  * 将T中的所有属性设置为可选
@@ -53,7 +76,7 @@ startActivity(intent);
 
 隐式启动说到隐式启动就要谈到intentFilter的匹配了,下面这段在配置文件里面的activity的intent-filter,如果我们想要通过隐式启动的方式打开这个activity，那么就需要为intent指定action，添加category，指定data
 &amp;lt;intent-filter&amp;gt;
-                &amp;lt;acti..</p><a class="button is-default mt-2 has-text-weight-semibold" href="/2022/11/20/intentFilter%E7%9A%84%E5%8C%B9%E9%85%8D%E8%A7%84%E5%88%99/">更多</a></section></article></section><aside class="column is-hidden-mobile is-4-tablet is-3-widescreen"><div style="position: sticky; top: 50px;"><main class="aside-card-container archives-widget is-in-archive-page"><h3>归档</h3><section><ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/11/">十一月 2022</a><span class="archive-list-count">5</span></li></ul></section></main></div></aside></div></article><script>$claudia.fadeInImage(null, $claudia.blurBackdropImg)
+                &amp;lt;acti..</p><a class="button is-default mt-2 has-text-weight-semibold" href="/2022/11/20/intentFilter%E7%9A%84%E5%8C%B9%E9%85%8D%E8%A7%84%E5%88%99/">更多</a></section></article></section><aside class="column is-hidden-mobile is-4-tablet is-3-widescreen"><div style="position: sticky; top: 50px;"><main class="aside-card-container archives-widget is-in-archive-page"><h3>归档</h3><section><ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/11/">十一月 2022</a><span class="archive-list-count">6</span></li></ul></section></main></div></aside></div></article><script>$claudia.fadeInImage(null, $claudia.blurBackdropImg)
 
 window.addEventListener('resize', $claudia.throttle(function () {
     var images = document.querySelectorAll('.js-img-fadeIn')
