@@ -1,0 +1,264 @@
+<!DOCTYPE html><html class="appearance-auto" lang="zh-CN"><head><meta charset="UTF-8"><title>TypeScript自带的工具泛型</title><meta name="description" content="May the Force be with you"><meta name="viewport" content="width=device-width, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no, initial-scale=1"><!-- Google Analytics --><!-- End Google Analytics -->
+<!-- Baidu Analytics --><!-- End Baidu Analytics --><link rel="icon" href="/images/favicon.ico"><link rel="stylesheet" href="/style/common/bulma.css"><link rel="stylesheet" href="/style/base.css"><link rel="stylesheet" href="/style/common/helper.css"><script src="/js/common.js"></script><link rel="stylesheet" href="/style/post.css"><link rel="stylesheet" href="/style/themes/highlight-theme-light.css"><link rel="stylesheet" href="/style/common/jquery.fancybox.min.css"><script src="/js/highlight.pack.js"></script><meta name="description" content="#前言
+前面总结了ts的高级类型，下面再来说说ts给我们提供的一些基于这些高级类型而成的工具泛型。
+##Partial
+/**
+ * Make all properties in T optional
+ * 将T中的所有属性设置为可选
+ */
+type Partial&amp;lt;T&amp;gt; = &amp;#123;
+    [P in keyof T]?: T[P];
+&amp;#125;;
+
+官方提供的这个方法，就是将T中的所有属性设置为可选类型。可以看到它使用了in和keyof T来遍历T中的所有key（此时P就代表key），可以看到它使用了?:来将类型改为了可空类型，最后再通过T[P]取值的形式,拿到key对应的属性，最后就生成了一个所有key都和T一样，但都是可空类型的新T类型。下面我们看看效果：
+
+
+
+可以看到此处的.."><meta name="generator" content="Hexo 5.4.2"><link rel="alternate" href="/atom.xml" title="Hexo" type="application/atom+xml">
+</head><body class="is-flex is-flex-direction-column"><header class="header-widget is-flex-shrink-0 is-hidden-mobile"><div class="container is-fullhd is-flex is-justify-content-space-between is-align-items-center is-full-height"><section class="is-hidden-mobile is-flex-shrink-0"><h2><a href="/">zhangliang's blog</a></h2></section><h3 class="is-hidden-mobile is-family-serif is-full-height is-flex is-align-items-center is-flex-shrink-0"><div class="is-full-height" id="postTopic"><p class="is-full-height is-flex-shrink-0 is-flex is-align-items-center is-justify-content-center">TypeScript自带的工具泛型</p><p class="is-full-height is-flex-shrink-0 is-flex is-align-items-center is-justify-content-center">点击返回顶部</p></div></h3><aside class="is-flex-shrink-0"><h3 class="is-inline-block"><a href="/">首页</a></h3><h3 class="is-inline-block"><a href="/about">关于</a></h3><h3 class="is-inline-block"><a href="/archives">归档</a></h3></aside></div></header><header class="is-flex header-widget is-flex-shrink-0 is-align-items-center is-justify-content-center is-hidden-tablet"><h3 class="is-inline-block"><a href="/">首页</a></h3><h3 class="is-inline-block"><a href="/about">关于</a></h3><h3 class="is-inline-block"><a href="/archives">归档</a></h3></header><main><main class="container is-max-widescreen content section post-page pt-4 px-4"><div class="columns is-flex-desktop is-justify-content-center is-flex-direction-row-reverse"><div class="column is-3 is-hidden-mobile is-hidden"></div><div class="column is-9"><header class="my-4"><a href="/tags/Advanced%20Type"><i class="tag post-item-tag">Advanced Type</i></a></header><h1 class="mt-0 mb-1 is-family-serif" id="postTitle">TypeScript自带的工具泛型</h1><time class="has-text-grey" datetime="2022-11-20T03:42:42.000Z">2022-11-20</time><article class="mt-2 post-content"><p>#前言</p>
+<p>前面总结了<code>ts</code>的高级类型，下面再来说说<code>ts</code>给我们提供的一些基于这些高级类型而成的工具泛型。</p>
+<p>##Partial</p>
+<pre><code>/**
+ * Make all properties in T optional
+ * 将T中的所有属性设置为可选
+ */
+type Partial&lt;T&gt; = &#123;
+    [P in keyof T]?: T[P];
+&#125;;
+</code></pre>
+<p>官方提供的这个方法，就是将<code>T</code>中的所有属性设置为可选类型。可以看到它使用了<code>in</code>和<code>keyof T</code>来遍历<code>T</code>中的所有<code>key</code>（此时<code>P</code>就代表<code>key</code>），可以看到它使用了<code>?:</code>来将类型改为了可空类型，最后再通过<code>T[P]</code>取值的形式,拿到<code>key</code>对应的属性，最后就生成了一个所有<code>key</code>都和<code>T</code>一样，但都是可空类型的新<code>T</code>类型。下面我们看看效果：</p>
+<img src="/images/5125944-397285fdc655de54.png" width="100%">
+<br>
+
+<p>可以看到此处的类型已经发生变化。</p>
+<p>##Required</p>
+<pre><code>/**
+ * Make all properties in T required
+ * 使T中的所有属性都是必需的
+ */
+type Required&lt;T&gt; = &#123;
+    [P in keyof T]-?: T[P];
+&#125;;
+</code></pre>
+<p><code>Required</code>和<code>Partial</code>是相反的，它的作用是<code>使T中的所有属性都是必需的</code>，<code>[P in keyof T]-?: T[P]</code>里面的<code>-?</code>可以看做是取消掉<code>?</code>的意思，直接贴效果：</p>
+<img src="/images/5125944-7de6dcb0d9577306.png" width="100%">
+<br>
+
+<p>可以看到，所有可选类型都变成必选了。</p>
+<p>##Readonly</p>
+<pre><code>/**
+ * Make all properties in T readonly
+ * 将T中的所有属性设置为只读
+ */
+type Readonly&lt;T&gt; = &#123;
+    readonly [P in keyof T]: T[P];
+&#125;;
+</code></pre>
+<p>顾名思义，<code>Readonly</code>的作用就是将<code>T</code>中的所有元素设置为只读类型。</p>
+<img src="/images/5125944-29db75e060ecad47.png" width="100%">
+<br>
+
+<p>我们可以看的类型<code>age</code>和<code>name</code>已经变成只读类型了。</p>
+<p>##Pick</p>
+<pre><code>/**
+ * From T, pick a set of properties whose keys are in the union K
+ * 从T中，选择一组键位于联合K中的属性
+ */
+type Pick&lt;T, K extends keyof T&gt; = &#123;
+    [P in K]: T[P];
+&#125;;
+</code></pre>
+<p>根据 <code>K extends keyof T</code> 可以得知 <code>K</code> 是单个类型都位于 <code>T</code> 中的联合类型，首先通过 <code>[P in K]</code> 取出联合类型 <code>K</code> 中所有的类型，再将其和 <code>T[P]</code> 的值关联起来，最后返回了一个新的 <code>interface</code> 类型，这个类型里面只包含了联合类型 <code>K</code> 的所有类型。</p>
+<pre><code>interface Person &#123;
+    name: string,
+    age: number,
+    sex: string
+&#125;
+
+type nameAndAge = &quot;name&quot; | &quot;age&quot;
+
+const nameAndAgePerson: Pick&lt;Person, nameAndAge&gt; = &#123;
+    name: &quot;zl&quot;,
+    age: 27
+&#125;
+</code></pre>
+<p>如上示例，因为 <code>K(nameAndAge)</code> 的类型为 <code>name|age</code> ，所以通过 <code>Pick&lt;Person,nameAndAge&gt;</code> 得到的类型是 <code>&#123; name:string , age:number &#125;</code> 。</p>
+<p>##Record</p>
+<pre><code>/**
+ * Construct a type with a set of properties K of type T
+ * 将联合类型K的所有值作为Key，T作为类型，生成一个新的类型
+ */
+type Record&lt;K extends keyof any, T&gt; = &#123;
+    [P in K]: T;
+&#125;;
+</code></pre>
+<p>同样的根据 <code>K extends keyof any</code> 我们可以知道 <code>K</code> 是个联合类型，通过 <code>[P in K]</code> 将联合类型的所有值都取了出来，再将其和 <code>T</code> 关联起来，最后返回了一个新的 <code>interface</code> 类型，这个类型里面的所有属性的类型都是 <code>T</code> 类型。</p>
+<pre><code>interface Person &#123;
+    name: string,
+    age: number,
+    sex: string
+&#125;
+
+type TeacherAndWorker = &quot;teacher&quot; | &quot;worker&quot;
+
+const person: Record&lt;TeacherAndWorker, Person&gt; = &#123;
+    teacher: &#123; name: &#39;zl&#39;, age: 27, sex: &quot;M&quot; &#125;,
+    worker: &#123; name: &#39;zl&#39;, age: 27, sex: &quot;M&quot; &#125;
+&#125;
+</code></pre>
+<p>如上示例可以看出，<code>Record</code> 的作用就是将 <code>K(TeacherAndWorker)</code> 的所有子类型作为 <code>新interface</code> 子属性的 <code>key</code> ，将 <code>T(Person)</code> 作为 <code>新interface</code> 所有子属性的值。</p>
+<p>##Exclude</p>
+<pre><code>/**
+ * Exclude from T those types that are assignable to U
+ * 从T中排除可分配给U的类型
+ */
+type Exclude&lt;T, U&gt; = T extends U ? never : T;
+</code></pre>
+<p><code>Exclude</code> 最常用的还是结合两个联合类型来使用的，我们能通过 <code>Exclude</code> 取出 <code>T</code> 联合类型在 <code>U</code> 联合类型中没有的子类型。</p>
+<pre><code>interface Person &#123;
+    name: string,
+    age: number,
+    sex: string
+&#125;
+
+interface Alien &#123;
+    name: string,
+    age: number
+&#125;
+
+const personKeysExcludeAlienKeys: Exclude&lt;keyof Person, keyof Alien&gt; = &quot;sex&quot;
+</code></pre>
+<p>如上所示，<code>T(keyof Person = name|age|sex)</code> 联合类型在 <code>U(keyof Alien = name|age)</code> 联合类型中没有的子类型只有 <code>sex</code>，所以通过 <code>Exclude&lt;keyof Person, keyof Alien&gt;</code> 返回的类型就是 <code>sex</code>。下面我们再来看看 <code>interface</code> 之间的 <code>Exclude</code>。</p>
+<pre><code>const alien: Exclude&lt;Alien, Person&gt; = &#123;
+    name: &quot;zl&quot;,
+    age: 27
+&#125;    
+</code></pre>
+<p>可以看到，通过 <code>Exclude&lt;Alien, Person&gt;</code> 我们得到的类型就是 <code>Alien</code> 类型，因为 <code>T(Alien) extends U(Person)</code> 为 <code>false</code> ，所以返回 <code>T(Alien)</code>。这种方式我是想不到什么使用场景。</p>
+<p>##Extract</p>
+<pre><code>/**
+ * Extract from T those types that are assignable to U
+ * 从T中提取可分配给U的类型
+ */
+type Extract&lt;T, U&gt; = T extends U ? T : never;
+</code></pre>
+<p><code>Extract</code> 和 <code>Exclude</code> 是相反的，最常用的还是结合两个联合类型来使用的，我们能通过 <code>Extract</code> 取出 <code>T</code> 联合类型在 <code>U</code> 联合类型中所有重复的子类型。</p>
+<img src="/images/5125944-fc2ef49fbd1c8bfe.png" width="100%">
+<br>
+
+<p>如图所示，此时通过 <code>Extract&lt;keyof Person, keyof Alien&gt;</code> 返回的是联合类型 <code>name|age</code>。</p>
+<p>##Omit</p>
+<pre><code>/**
+ * Construct a type with the properties of T except for those in type K.
+ * 构造一个属性为T的类型，但类型K中的属性除外。
+ */
+type Omit&lt;T, K extends keyof any&gt; = Pick&lt;T, Exclude&lt;keyof T, K&gt;&gt;;
+</code></pre>
+<p><code>Omit</code> 就是 <code>Pick</code> 和 <code>Exclude</code> 的组合，首先我们可以通过 <code>K extends keyof any</code> 得知 <code>K</code> 为联合类型，然后通过 <code>Exclude&lt;keyof T, K&gt;</code> 我们取出了在联合类型 <code>keyof T</code> 中有，而在 <code>K</code> 中没有的子属性(这里我们假设是 <code>联合类型M</code> )，最后再通过 <code>Pick&lt;T,M&gt;</code> 得到一个新的 <code>interface</code> 类型，这个类型里面只包含了联合类型 <code>M</code> 的所有类型。<em><strong>简单的讲 <code>Omit</code> 就是从类型 <code>T</code> 中取出在 <code>联合类型K</code> 中所没有的类型。</strong></em></p>
+<pre><code>interface Person &#123;
+    name: string,
+    age: number,
+    sex: string
+&#125;
+
+const person: Omit&lt;Person, &quot;name&quot; | &quot;age&quot;&gt; = &#123; sex: &quot;M&quot; &#125;;
+</code></pre>
+<p>如上示例，我们取出了在 <code>T(Person)</code> 里面除去 <code>K(&quot;name&quot;|&quot;age&quot;)</code> 以外的类型 <code>sex</code> ，并组成了一个新的 <code>interface</code>。</p>
+<p>##NonNullable</p>
+<pre><code>/**
+ * Exclude null and undefined from T
+ *  从T中剔除null和undefined
+ */
+type NonNullable&lt;T&gt; = T extends null | undefined ? never : T;
+</code></pre>
+<p>就是字面意思，去除掉联合类型中的 <code>null</code> 和 <code>undefined</code> 类型。如下图所示，</p>
+<img src="/images/5125944-be1bc2dc54865aaa.png" width="100%">
+<br>
+
+<p>使用 <code>NonNullable</code> 之后去掉了联合类型 <code>null | undefined | number | string</code> 中的 <code>null</code> 和 <code>undefined</code> 类型，剩下了 <code>number|string</code>。</p>
+<p>##Parameters</p>
+<pre><code> /**
+ * Obtain the parameters of a function type in a tuple
+ * 获取元组中函数类型的参数
+ */
+type Parameters&lt;T extends (...args: any) =&gt; any&gt; = T extends (...args: infer P) =&gt; any ? P : never;
+</code></pre>
+<p>根据 <code>&lt;T extends (...args: any) =&gt; any&gt;</code> 我们能够知道 <code>T</code> 是个函数类型，再通过 <code>T extends (...args: infer P) =&gt; any</code> 将 <code>T</code> 的形参列表约束成了泛型 <code>P</code> ，所以通过三元运算返回的是函数类型 <code>T</code> 的形参元组。</p>
+<pre><code>function fn(str: string, num: number) &#123;&#125;
+type fnParamtersTuple = Parameters&lt;typeof fn&gt;
+</code></pre>
+<img src="/images/5125944-4d0cac21ce6fafd5.png" width="100%">
+<br>
+
+<p>如图所示，<code>fnParamtersTuple</code> 的类型为，<code>fn</code> 的形参类型的元组。</p>
+<p>##ConstructorParameters</p>
+<pre><code>/**
+ * Obtain the parameters of a constructor function type in a tuple
+ * 获取元组中构造函数类型的参数
+ */
+type ConstructorParameters&lt;T extends abstract new (...args: any) =&gt; any&gt; = T extends abstract new (...args: infer P) =&gt; any ? P : never;
+</code></pre>
+<p>和 <code>Parameters</code> 类似，只不过 <code>ConstructorParameters</code> 获取的是构造函数的形参元组。下面以官网上介绍 <code>interface类静态部分与实例部分的区别</code> 中的例子改变一下作为demo。</p>
+<pre><code>interface ClockConstructor &#123;
+    new(hour: number, minute: number): ClockInterface;
+&#125;
+interface ClockInterface &#123;
+    tick();
+&#125;
+
+//通过 ConstructorParameters&lt;ClockConstructor&gt; 获取构造函数中的形参元组
+function createClock(ctor: ClockConstructor, ...arg: ConstructorParameters&lt;ClockConstructor&gt;): ClockInterface &#123;
+    return new ctor(...arg);
+&#125;
+
+class DigitalClock implements ClockInterface &#123;
+    constructor(h: number, m: number) &#123; &#125;
+    tick() &#123;
+        console.log(&quot;beep beep&quot;);
+    &#125;
+&#125;
+
+let digital = createClock(DigitalClock, 12, 17);
+</code></pre>
+<p>##ReturnType</p>
+<pre><code>/**
+ * Obtain the return type of a function type
+ * 获取函数类型的返回类型
+ */
+type ReturnType&lt;T extends (...args: any) =&gt; any&gt; = T extends (...args: any) =&gt; infer R ? R : any;
+</code></pre>
+<p>和 <code>Parameters</code> 类似，只不过 <code>ReturnType</code> 获取的是函数类型的返回类型。</p>
+<pre><code> function fn() : string &#123;
+     return &quot;&quot;
+ &#125;
+ type fnReturnType = ReturnType&lt;typeof fn&gt;
+</code></pre>
+<img src="/images/5125944-83e80e5357848ba4.png" width="100%">
+<br>
+
+<p>##InstanceType</p>
+<pre><code>/**
+ * Obtain the return type of a constructor function type
+ */
+type InstanceType&lt;T extends abstract new (...args: any) =&gt; any&gt; = T extends abstract new (...args: any) =&gt; infer R ? R : any;
+</code></pre>
+<p>和 <code>Parameters</code> 类似，只不过 <code>ConstructorParameters</code> 获取的是构造函数返回值的类型。</p>
+<pre><code>class Person &#123; &#125;
+
+class Alien &#123; &#125;
+
+type p0 = InstanceType&lt;typeof Person&gt; // Person
+
+interface PersonConstructor &#123;
+    new(): Person
+&#125;
+
+type p1 = InstanceType&lt;PersonConstructor&gt; // Person
+
+interface PersonAndAlienConstructor &#123;
+    new(): Person | Alien
+&#125;
+
+type p2 = InstanceType&lt;PersonAndAlienConstructor&gt; // Person | Alien
+</code></pre>
+</article><section class="jump-container is-flex is-justify-content-space-between my-6"><!-- em is empty placeholder--><em></em><a class="button is-default" href="/2022/11/20/TypeScript-%E9%AB%98%E7%BA%A7%E7%B1%BB%E5%9E%8B/" title="TypeScript 高级类型"><span class="has-text-weight-semibold">下一页: TypeScript 高级类型</span><i class="iconfont icon-next ml-2 has-text-grey"></i></a></section><article class="mt-6 comment-container"><script async repo="MonkZL/MonkZL.github.io" src="https://utteranc.es/client.js" issue-term="pathname" theme="preferred-color-scheme"></script></article></div></div></main></main><footer class="is-flex is-flex-direction-column is-align-items-center is-flex-shrink-0 is-family-serif"><section class="sns-container"><a title="twitter" target="_blank" rel="noopener nofollow" href="//twitter.com//"><i class="iconfont icon-twitter"></i></a><!-- Github--><a title="github" target="_blank" rel="noopener nofollow" href="//github.com/MonkZL"><i class="iconfont icon-github"></i></a><!-- Ins--><a title="instagram" target="_blank" rel="noopener nofollow" href="//www.instagram.com//"><i class="iconfont icon-ins"></i></a><!-- RSS--><!-- 知乎--><!-- 领英--><!-- 脸书--><a title="facebook" target="_blank" rel="noopener nofollow" href="//www.facebook.com//"><i class="iconfont icon-tian7_facebook"></i></a></section><p><span>Copyright ©</span><span> zhangliang 2022</span></p><div class="is-flex is-justify-content-center is-flex-wrap-wrap"><p>Powered by Hexo &verbar;&nbsp;</p><p class="is-flex is-justify-content-center"><a title="Hexo theme author" target="_blank" rel="noopener" href="//github.com/haojen">Theme by Haojen&nbsp;</a></p><div style="margin-top: 2px"><a class="github-button" title="github-button" target="_blank" rel="noopener" href="https://github.com/haojen/hexo-theme-Claudia" data-color-scheme="no-preference: light; light: light; dark: dark;" data-show-count="true"></a></div></div><div><span></span></div></footer><script async defer src="https://buttons.github.io/buttons.js"></script><script src="/js/jquery-3.6.1.min.js"></script><script src="/js/jquery-fancybox.min.js"></script><script src="/js/img_zoom.js"></script><script src="/js/post.js"></script></body></html>
