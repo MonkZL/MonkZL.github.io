@@ -60,248 +60,283 @@ PUBLIC &quot;-//mybatis.org//DTD Config 3.0//EN&quot;
 </li>
 </ul>
 <h1 id="使用"><a href="#使用" class="headerlink" title="使用"></a>使用</h1><ul>
-<li>创建<code>User.java</code><br>```<br>package com.mybatis.pojo;</li>
+<li>创建<code>User.java</code></li>
 </ul>
-<p>public class User {<br>    private Integer id;<br>    private String username;<br>    private String password;<br>    private String companyName;<br>    private String gender;<br>    private String addr;</p>
-<pre><code>public Integer getId() &#123;
-    return id;
-&#125;
+<pre><code>package com.mybatis.pojo;
 
-public void setId(Integer id) &#123;
-    this.id = id;
-&#125;
+public class User &#123;
+    private Integer id;
+    private String username;
+    private String password;
+    private String companyName;
+    private String gender;
+    private String addr;
 
-public String getUsername() &#123;
-    return username;
-&#125;
+    public Integer getId() &#123;
+        return id;
+    &#125;
 
-public void setUsername(String username) &#123;
-    this.username = username;
-&#125;
+    public void setId(Integer id) &#123;
+        this.id = id;
+    &#125;
 
-public String getPassword() &#123;
-    return password;
-&#125;
+    public String getUsername() &#123;
+        return username;
+    &#125;
 
-public void setPassword(String password) &#123;
-    this.password = password;
-&#125;
+    public void setUsername(String username) &#123;
+        this.username = username;
+    &#125;
 
-public String getCompanyName() &#123;
-    return companyName;
-&#125;
+    public String getPassword() &#123;
+        return password;
+    &#125;
 
-public void setCompanyName(String companyName) &#123;
-    this.companyName = companyName;
-&#125;
+    public void setPassword(String password) &#123;
+        this.password = password;
+    &#125;
 
-public String getGender() &#123;
-    return gender;
-&#125;
+    public String getCompanyName() &#123;
+        return companyName;
+    &#125;
 
-public void setGender(String gender) &#123;
-    this.gender = gender;
-&#125;
+    public void setCompanyName(String companyName) &#123;
+        this.companyName = companyName;
+    &#125;
 
-public String getAddr() &#123;
-    return addr;
-&#125;
+    public String getGender() &#123;
+        return gender;
+    &#125;
 
-public void setAddr(String addr) &#123;
-    this.addr = addr;
-&#125;
+    public void setGender(String gender) &#123;
+        this.gender = gender;
+    &#125;
 
-@Override
-public String toString() &#123;
-    return &quot;User&#123;&quot; +
-            &quot;id=&quot; + id +
-            &quot;, username=&#39;&quot; + username + &#39;\&#39;&#39; +
-            &quot;, password=&#39;&quot; + password + &#39;\&#39;&#39; +
-            &quot;, companyName=&#39;&quot; + companyName + &#39;\&#39;&#39; +
-            &quot;, gender=&#39;&quot; + gender + &#39;\&#39;&#39; +
-            &quot;, addr=&#39;&quot; + addr + &#39;\&#39;&#39; +
-            &#39;&#125;&#39;;
+    public String getAddr() &#123;
+        return addr;
+    &#125;
+
+    public void setAddr(String addr) &#123;
+        this.addr = addr;
+    &#125;
+
+    @Override
+    public String toString() &#123;
+        return &quot;User&#123;&quot; +
+                &quot;id=&quot; + id +
+                &quot;, username=&#39;&quot; + username + &#39;\&#39;&#39; +
+                &quot;, password=&#39;&quot; + password + &#39;\&#39;&#39; +
+                &quot;, companyName=&#39;&quot; + companyName + &#39;\&#39;&#39; +
+                &quot;, gender=&#39;&quot; + gender + &#39;\&#39;&#39; +
+                &quot;, addr=&#39;&quot; + addr + &#39;\&#39;&#39; +
+                &#39;&#125;&#39;;
+    &#125;
 &#125;
 </code></pre>
-<p>}</p>
-<pre><code>
-+ 创建`UserMapper.java`
+<ul>
+<li>创建<code>UserMapper.java</code></li>
+</ul>
+<pre><code>package com.mybatis.mapper;
+
+import com.mybatis.pojo.User;
+import org.apache.ibatis.annotations.Param;
+
+import java.util.List;
+
+public interface UserMapper &#123;
+
+    List&lt;User&gt; selectAll();
+
+    // 如果单独传参数的话需要指定参数名字，这样在UserMapper.xml那边才能通过#&#123;id&#125;的方式使用
+    User selectById(@Param(&quot;id&quot;) int id);
+
+    // 如果传入的是User，这样在UserMapper.xml那边能通过#&#123;id&#125;的方式使用
+    List&lt;User&gt; selectUser(User user);
+    
+    // 如果添加了参数名字，这样在UserMapper.xml那边能通过#&#123;user.id&#125;的方式使用
+    // List&lt;User&gt; selectUser(@Param(&quot;user&quot;) User user);
+
+    void addUser(User user);
+
+    void modifyUser(User user);
+
+    void deleteById(@Param(&quot;id&quot;) int id);
+
+&#125;
 </code></pre>
-<p>package com.mybatis.mapper;</p>
-<p>import com.mybatis.pojo.User;<br>import org.apache.ibatis.annotations.Param;</p>
-<p>import java.util.List;</p>
-<p>public interface UserMapper {</p>
-<pre><code>List&lt;User&gt; selectAll();
-
-// 如果单独传参数的话需要指定参数名字，这样在UserMapper.xml那边才能通过#&#123;id&#125;的方式使用
-User selectById(@Param(&quot;id&quot;) int id);
-
-// 如果传入的是User，这样在UserMapper.xml那边能通过#&#123;id&#125;的方式使用
-List&lt;User&gt; selectUser(User user);
-
-// 如果添加了参数名字，这样在UserMapper.xml那边能通过#&#123;user.id&#125;的方式使用
-// List&lt;User&gt; selectUser(@Param(&quot;user&quot;) User user);
-
-void addUser(User user);
-
-void modifyUser(User user);
-
-void deleteById(@Param(&quot;id&quot;) int id);
-</code></pre>
-<p>}</p>
-<pre><code>
-+ 创建`UserMapper.xml`
-</code></pre>
-<?xml version="1.0" encoding="UTF-8" ?>
-<!DOCTYPE mapper
-        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
-        "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="mybatis.mapper.UserMapper">
-    <!--  本地user的companyName和数据库储存的不对应，这里做转换  -->
-    <resultMap id="userResultMap" type="com.mybatis.pojo.User">
-        <result column="company_name" property="companyName"/>
-    </resultMap>
-    <select id="selectAll" resultType="com.mybatis.pojo.User">
+<ul>
+<li>创建<code>UserMapper.xml</code></li>
+</ul>
+<pre><code>&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot; ?&gt;
+&lt;!DOCTYPE mapper
+        PUBLIC &quot;-//mybatis.org//DTD Mapper 3.0//EN&quot;
+        &quot;https://mybatis.org/dtd/mybatis-3-mapper.dtd&quot;&gt;
+&lt;mapper namespace=&quot;mybatis.mapper.UserMapper&quot;&gt;
+    &lt;!--  本地user的companyName和数据库储存的不对应，这里做转换  --&gt;
+    &lt;resultMap id=&quot;userResultMap&quot; type=&quot;com.mybatis.pojo.User&quot;&gt;
+        &lt;result column=&quot;company_name&quot; property=&quot;companyName&quot;/&gt;
+    &lt;/resultMap&gt;
+    &lt;select id=&quot;selectAll&quot; resultType=&quot;com.mybatis.pojo.User&quot;&gt;
         select * from user;
-    </select>
-    <select id="selectById" resultType="com.mybatis.pojo.User">
-        select * from user where id = #{id};
-    </select>
-    <select id="selectUser" resultMap="userResultMap">
+    &lt;/select&gt;
+    &lt;select id=&quot;selectById&quot; resultType=&quot;com.mybatis.pojo.User&quot;&gt;
+        select * from user where id = #&#123;id&#125;;
+    &lt;/select&gt;
+    &lt;select id=&quot;selectUser&quot; resultMap=&quot;userResultMap&quot;&gt;
         select *
         from user
-        <where>
-            <if test="username != null and username != ''">
-                and username = #{username}
-            </if>
-            <if test="password != null and password != ''">
-                and password = #{password}
-            </if>
-            <if test="companyName != null and companyName != ''">
-                and company_name = #{companyName}
-            </if>
+        &lt;where&gt;
+            &lt;if test=&quot;username != null and username != &#39;&#39;&quot;&gt;
+                and username = #&#123;username&#125;
+            &lt;/if&gt;
+            &lt;if test=&quot;password != null and password != &#39;&#39;&quot;&gt;
+                and password = #&#123;password&#125;
+            &lt;/if&gt;
+            &lt;if test=&quot;companyName != null and companyName != &#39;&#39;&quot;&gt;
+                and company_name = #&#123;companyName&#125;
+            &lt;/if&gt;
 
-<pre><code>        &lt;if test=&quot;gender != null and gender != &#39;&#39;&quot;&gt;
-            and gender = #&#123;gender&#125;
-        &lt;/if&gt;
+            &lt;if test=&quot;gender != null and gender != &#39;&#39;&quot;&gt;
+                and gender = #&#123;gender&#125;
+            &lt;/if&gt;
 
-        &lt;if test=&quot;addr != null and addr != &#39;&#39;&quot;&gt;
-            and addr = #&#123;addr&#125;
-        &lt;/if&gt;
-    &lt;/where&gt;
-&lt;/select&gt;
-&lt;insert id=&quot;addUser&quot; useGeneratedKeys=&quot;true&quot; keyProperty=&quot;id&quot;&gt;
-    insert into user(username,password,company_name,gender,addr)
-    values(#&#123;username&#125;,#&#123;password&#125;,#&#123;companyName&#125;,#&#123;gender&#125;,#&#123;addr&#125;)
-&lt;/insert&gt;
-&lt;update id=&quot;modifyUser&quot;&gt;
-    update user
-    &lt;set&gt;
-        &lt;if test=&quot;username != null and username != &#39;&#39;&quot;&gt;
-            username = #&#123;username&#125;,
-        &lt;/if&gt;
-        &lt;if test=&quot;password != null and password != &#39;&#39;&quot;&gt;
-            password = #&#123;password&#125;,
-        &lt;/if&gt;
-        &lt;if test=&quot;companyName != null and companyName != &#39;&#39;&quot;&gt;
-            company_name = #&#123;companyName&#125;,
-        &lt;/if&gt;
-        &lt;if test=&quot;gender != null and gender != &#39;&#39;&quot;&gt;
-            gender = #&#123;gender&#125;,
-        &lt;/if&gt;
-        &lt;if test=&quot;addr != null and addr != &#39;&#39;&quot;&gt;
-            addr = #&#123;addr&#125;,
-        &lt;/if&gt;
-    &lt;/set&gt;
-    where id = #&#123;id&#125;
-&lt;/update&gt;
-&lt;delete id=&quot;deleteById&quot;&gt;
-    delete from user where id = #&#123;id&#125;
-&lt;/delete&gt;
+            &lt;if test=&quot;addr != null and addr != &#39;&#39;&quot;&gt;
+                and addr = #&#123;addr&#125;
+            &lt;/if&gt;
+        &lt;/where&gt;
+    &lt;/select&gt;
+    &lt;insert id=&quot;addUser&quot; useGeneratedKeys=&quot;true&quot; keyProperty=&quot;id&quot;&gt;
+        insert into user(username,password,company_name,gender,addr)
+        values(#&#123;username&#125;,#&#123;password&#125;,#&#123;companyName&#125;,#&#123;gender&#125;,#&#123;addr&#125;)
+    &lt;/insert&gt;
+    &lt;update id=&quot;modifyUser&quot;&gt;
+        update user
+        &lt;set&gt;
+            &lt;if test=&quot;username != null and username != &#39;&#39;&quot;&gt;
+                username = #&#123;username&#125;,
+            &lt;/if&gt;
+            &lt;if test=&quot;password != null and password != &#39;&#39;&quot;&gt;
+                password = #&#123;password&#125;,
+            &lt;/if&gt;
+            &lt;if test=&quot;companyName != null and companyName != &#39;&#39;&quot;&gt;
+                company_name = #&#123;companyName&#125;,
+            &lt;/if&gt;
+            &lt;if test=&quot;gender != null and gender != &#39;&#39;&quot;&gt;
+                gender = #&#123;gender&#125;,
+            &lt;/if&gt;
+            &lt;if test=&quot;addr != null and addr != &#39;&#39;&quot;&gt;
+                addr = #&#123;addr&#125;,
+            &lt;/if&gt;
+        &lt;/set&gt;
+        where id = #&#123;id&#125;
+    &lt;/update&gt;
+    &lt;delete id=&quot;deleteById&quot;&gt;
+        delete from user where id = #&#123;id&#125;
+    &lt;/delete&gt;
+&lt;/mapper&gt;
 </code></pre>
-</mapper>
-```
-
 <ul>
-<li>使用<code>UserMapper.java</code>的方法<br>```<br>package com.mybatis.test;</li>
+<li>使用<code>UserMapper.java</code>的方法</li>
 </ul>
-<p>import com.mybatis.mapper.UserMapper;<br>import com.mybatis.pojo.User;<br>import org.apache.ibatis.io.Resources;<br>import org.apache.ibatis.session.SqlSession;<br>import org.apache.ibatis.session.SqlSessionFactory;<br>import org.apache.ibatis.session.SqlSessionFactoryBuilder;<br>import org.junit.Test;</p>
-<p>import java.io.IOException;<br>import java.io.InputStream;<br>import java.util.List;</p>
-<p>public class MyBatisTest {<br>    @Test<br>    public void selectALl() throws IOException {<br>        String resource = “mybatis-config.xml”;<br>        InputStream inputStream = Resources.getResourceAsStream(resource);<br>        SqlSessionFactory sqlSessionFactory = new SqlSessionFactoryBuilder(). build(inputStream);<br>        SqlSession sqlSession = sqlSessionFactory.openSession();<br>        UserMapper userMapper = sqlSession.getMapper(UserMapper.class);<br>        List<User> users = userMapper.selectAll();<br>        System.out.println(users);<br>    }</p>
-<pre><code>@Test
-public void selectById() throws IOException &#123;
-    String resource = &quot;mybatis-config.xml&quot;;
-    InputStream inputStream = Resources.getResourceAsStream(resource);
-    SqlSessionFactory sqlSessionFactory = new SqlSessionFactoryBuilder(). build(inputStream);
-    SqlSession sqlSession = sqlSessionFactory.openSession();
-    UserMapper userMapper = sqlSession.getMapper(UserMapper.class);
-    User user = userMapper.selectById(1);
-    System.out.println(user);
+<pre><code>package com.mybatis.test;
+
+import com.mybatis.mapper.UserMapper;
+import com.mybatis.pojo.User;
+import org.apache.ibatis.io.Resources;
+import org.apache.ibatis.session.SqlSession;
+import org.apache.ibatis.session.SqlSessionFactory;
+import org.apache.ibatis.session.SqlSessionFactoryBuilder;
+import org.junit.Test;
+
+import java.io.IOException;
+import java.io.InputStream;
+import java.util.List;
+
+public class MyBatisTest &#123;
+    @Test
+    public void selectALl() throws IOException &#123;
+        String resource = &quot;mybatis-config.xml&quot;;
+        InputStream inputStream = Resources.getResourceAsStream(resource);
+        SqlSessionFactory sqlSessionFactory = new SqlSessionFactoryBuilder(). build(inputStream);
+        SqlSession sqlSession = sqlSessionFactory.openSession();
+        UserMapper userMapper = sqlSession.getMapper(UserMapper.class);
+        List&lt;User&gt; users = userMapper.selectAll();
+        System.out.println(users);
+    &#125;
+
+    @Test
+    public void selectById() throws IOException &#123;
+        String resource = &quot;mybatis-config.xml&quot;;
+        InputStream inputStream = Resources.getResourceAsStream(resource);
+        SqlSessionFactory sqlSessionFactory = new SqlSessionFactoryBuilder(). build(inputStream);
+        SqlSession sqlSession = sqlSessionFactory.openSession();
+        UserMapper userMapper = sqlSession.getMapper(UserMapper.class);
+        User user = userMapper.selectById(1);
+        System.out.println(user);
+    &#125;
+
+    @Test
+    public void selectUser() throws IOException &#123;
+        String resource = &quot;mybatis-config.xml&quot;;
+        InputStream inputStream = Resources.getResourceAsStream(resource);
+        SqlSessionFactory sqlSessionFactory = new SqlSessionFactoryBuilder(). build(inputStream);
+        SqlSession sqlSession = sqlSessionFactory.openSession();
+        UserMapper userMapper = sqlSession.getMapper(UserMapper.class);
+        User user = new User();
+        user.setUsername(&quot;zl&quot;);
+        user.setPassword(&quot;123&quot;);
+        user.setAddr(&quot;cd&quot;);
+        user.setGender(&quot;nan&quot;);
+        user.setCompanyName(&quot;lp&quot;);
+        List&lt;User&gt; users = userMapper.selectUser(user);
+        System.out.println(users);
+    &#125;
+
+
+    @Test
+    public void addUser() throws IOException &#123;
+        String resource = &quot;mybatis-config.xml&quot;;
+        InputStream inputStream = Resources.getResourceAsStream(resource);
+        SqlSessionFactory sqlSessionFactory = new SqlSessionFactoryBuilder(). build(inputStream);
+        SqlSession sqlSession = sqlSessionFactory.openSession(true);
+        UserMapper userMapper = sqlSession.getMapper(UserMapper.class);
+        User user = new User();
+        user.setUsername(&quot;zll&quot;);
+        user.setPassword(&quot;123&quot;);
+        user.setAddr(&quot;cd&quot;);
+        user.setGender(&quot;nan&quot;);
+        user.setCompanyName(&quot;lp&quot;);
+        userMapper.addUser(user);
+        System.out.println(user.getId());
+    &#125;
+
+    @Test
+    public void modifyById() throws IOException &#123;
+        String resource = &quot;mybatis-config.xml&quot;;
+        InputStream inputStream = Resources.getResourceAsStream(resource);
+        SqlSessionFactory sqlSessionFactory = new SqlSessionFactoryBuilder(). build(inputStream);
+        SqlSession sqlSession = sqlSessionFactory.openSession(true);
+        UserMapper userMapper = sqlSession.getMapper(UserMapper.class);
+        User user = new User();
+        user.setId(1);
+        user.setUsername(&quot;zlxl&quot;);
+        user.setAddr(&quot;xxx2&quot;);
+        user.setGender(&quot;xxx3&quot;);
+        user.setCompanyName(&quot;xxx4&quot;);
+        userMapper.modifyUser(user);
+    &#125;
+
+
+    @Test
+    public void deleteById() throws IOException &#123;
+        String resource = &quot;mybatis-config.xml&quot;;
+        InputStream inputStream = Resources.getResourceAsStream(resource);
+        SqlSessionFactory sqlSessionFactory = new SqlSessionFactoryBuilder(). build(inputStream);
+        SqlSession sqlSession = sqlSessionFactory.openSession(true);
+        UserMapper userMapper = sqlSession.getMapper(UserMapper.class);
+        userMapper.deleteById(2);
+    &#125;
+
 &#125;
-
-@Test
-public void selectUser() throws IOException &#123;
-    String resource = &quot;mybatis-config.xml&quot;;
-    InputStream inputStream = Resources.getResourceAsStream(resource);
-    SqlSessionFactory sqlSessionFactory = new SqlSessionFactoryBuilder(). build(inputStream);
-    SqlSession sqlSession = sqlSessionFactory.openSession();
-    UserMapper userMapper = sqlSession.getMapper(UserMapper.class);
-    User user = new User();
-    user.setUsername(&quot;zl&quot;);
-    user.setPassword(&quot;123&quot;);
-    user.setAddr(&quot;cd&quot;);
-    user.setGender(&quot;nan&quot;);
-    user.setCompanyName(&quot;lp&quot;);
-    List&lt;User&gt; users = userMapper.selectUser(user);
-    System.out.println(users);
-&#125;
-
-
-@Test
-public void addUser() throws IOException &#123;
-    String resource = &quot;mybatis-config.xml&quot;;
-    InputStream inputStream = Resources.getResourceAsStream(resource);
-    SqlSessionFactory sqlSessionFactory = new SqlSessionFactoryBuilder(). build(inputStream);
-    SqlSession sqlSession = sqlSessionFactory.openSession(true);
-    UserMapper userMapper = sqlSession.getMapper(UserMapper.class);
-    User user = new User();
-    user.setUsername(&quot;zll&quot;);
-    user.setPassword(&quot;123&quot;);
-    user.setAddr(&quot;cd&quot;);
-    user.setGender(&quot;nan&quot;);
-    user.setCompanyName(&quot;lp&quot;);
-    userMapper.addUser(user);
-    System.out.println(user.getId());
-&#125;
-
-@Test
-public void modifyById() throws IOException &#123;
-    String resource = &quot;mybatis-config.xml&quot;;
-    InputStream inputStream = Resources.getResourceAsStream(resource);
-    SqlSessionFactory sqlSessionFactory = new SqlSessionFactoryBuilder(). build(inputStream);
-    SqlSession sqlSession = sqlSessionFactory.openSession(true);
-    UserMapper userMapper = sqlSession.getMapper(UserMapper.class);
-    User user = new User();
-    user.setId(1);
-    user.setUsername(&quot;zlxl&quot;);
-    user.setAddr(&quot;xxx2&quot;);
-    user.setGender(&quot;xxx3&quot;);
-    user.setCompanyName(&quot;xxx4&quot;);
-    userMapper.modifyUser(user);
-&#125;
-
-
-@Test
-public void deleteById() throws IOException &#123;
-    String resource = &quot;mybatis-config.xml&quot;;
-    InputStream inputStream = Resources.getResourceAsStream(resource);
-    SqlSessionFactory sqlSessionFactory = new SqlSessionFactoryBuilder(). build(inputStream);
-    SqlSession sqlSession = sqlSessionFactory.openSession(true);
-    UserMapper userMapper = sqlSession.getMapper(UserMapper.class);
-    userMapper.deleteById(2);
-&#125;
-</code></pre>
-<p>}</p>
-<pre><code>
 </code></pre>
 </article><section class="jump-container is-flex is-justify-content-space-between my-6"><!-- em is empty placeholder--><em></em><a class="button is-default" href="/2022/11/20/java-web%E5%AD%A6%E4%B9%A0-MySQL/" title="java-web学习 MySQL"><span class="has-text-weight-semibold">下一页: java-web学习 MySQL</span><i class="iconfont icon-next ml-2 has-text-grey"></i></a></section><article class="mt-6 comment-container"><script async repo="MonkZL/MonkZL.github.io" src="https://utteranc.es/client.js" issue-term="pathname" theme="preferred-color-scheme"></script></article></div></div></main></main><footer class="is-flex is-flex-direction-column is-align-items-center is-flex-shrink-0 is-family-serif"><section class="sns-container"><a title="twitter" target="_blank" rel="noopener nofollow" href="//twitter.com//"><i class="iconfont icon-twitter"></i></a><!-- Github--><a title="github" target="_blank" rel="noopener nofollow" href="//github.com/MonkZL"><i class="iconfont icon-github"></i></a><!-- Ins--><a title="instagram" target="_blank" rel="noopener nofollow" href="//www.instagram.com//"><i class="iconfont icon-ins"></i></a><!-- RSS--><!-- 知乎--><!-- 领英--><!-- 脸书--><a title="facebook" target="_blank" rel="noopener nofollow" href="//www.facebook.com//"><i class="iconfont icon-tian7_facebook"></i></a></section><p><span>Copyright ©</span><span> zhangliang 2022</span></p><div class="is-flex is-justify-content-center is-flex-wrap-wrap"><p>Powered by Hexo &verbar;&nbsp;</p><p class="is-flex is-justify-content-center"><a title="Hexo theme author" target="_blank" rel="noopener" href="//github.com/haojen">Theme by Haojen&nbsp;</a></p><div style="margin-top: 2px"><a class="github-button" title="github-button" target="_blank" rel="noopener" href="https://github.com/haojen/hexo-theme-Claudia" data-color-scheme="no-preference: light; light: light; dark: dark;" data-show-count="true"></a></div></div><div><span></span></div></footer><script async defer src="https://buttons.github.io/buttons.js"></script><script src="/js/jquery-3.6.1.min.js"></script><script src="/js/jquery-fancybox.min.js"></script><script src="/js/img_zoom.js"></script><script src="/js/post.js"></script></body></html>
